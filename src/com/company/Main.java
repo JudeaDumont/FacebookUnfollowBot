@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // TODO Auto-generated method stub
 
         //setting the driver executable
@@ -46,15 +46,22 @@ public class Main {
 
             try {
                 for (WebElement element : elements) {
-                    new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(element)).click();
+                    new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(element)).click();
                     List<WebElement> elements1 = driver.findElements(By.xpath("//span[contains(text(),'Unfollow')]"));
                     for (WebElement webElement : elements1) {
-                        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(webElement)).click();
+                        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(webElement)).click();
+                        Thread.sleep(2000);
+                    }
+                    if(elements1.size() == 0){
+                        WebElement hideAll = driver.findElement(By.xpath("//span[contains(text(),'Hide all')]"));
+                        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable
+                                (hideAll)).click();
                         Thread.sleep(2000);
                     }
                 }
             } catch (Exception e) {
                 System.out.println(";)");
+                Thread.sleep(2000);
                 driver.get("https://www.facebook.com");
                 continue;
             }
