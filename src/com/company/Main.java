@@ -50,18 +50,28 @@ public class Main {
                     List<WebElement> elements1 = driver.findElements(By.xpath("//span[contains(text(),'Unfollow')]"));
                     for (WebElement webElement : elements1) {
                         new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable(webElement)).click();
-                        Thread.sleep(2000);
+                        Thread.sleep(1000);
                     }
-                    if(elements1.size() == 0){
-                        WebElement hideAll = driver.findElement(By.xpath("//span[contains(text(),'Hide all')]"));
-                        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable
-                                (hideAll)).click();
-                        Thread.sleep(2000);
+                    if (elements1.size() == 0) {
+                        List<WebElement> hideAllElements = driver.findElements(By.xpath("//span[contains(text(),'Hide all')]"));
+                        for (WebElement hide : hideAllElements) {
+                            new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable
+                                    (hide)).click();
+                            Thread.sleep(1000);
+                        }
+                        if (hideAllElements.size() == 0) {
+                            //Thread.sleep(500);
+                            List<WebElement> hidePostElements = driver.findElements(By.xpath("//span[contains(text(),'Hide post')]"));
+                            for (WebElement hidePost : hidePostElements) {
+                                new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.elementToBeClickable
+                                        (hidePost)).click();
+                                Thread.sleep(1000);
+                            }
+                        }
                     }
                 }
             } catch (Exception e) {
                 System.out.println(";)");
-                Thread.sleep(2000);
                 driver.get("https://www.facebook.com");
                 continue;
             }
